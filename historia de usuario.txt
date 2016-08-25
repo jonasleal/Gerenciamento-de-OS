@@ -1,0 +1,22 @@
+Qual o problema?
+Agilizar o gerenciamento de ordens de serviço e oferecer comodidade ao cliente. 
+Porque ele é relevante?
+Fornecer aos clientes de uma assistência técnica maior comodidade, podendo consultar de forma fácil e de qualquer lugar com internet o andamento do seu serviço.
+Quem são os concorrentes e por que o seu é melhor?
+
+Quem é o público alvo?
+Assistências técnicas.
+Há mercado?
+Há um grande número de assistências  técnicas especializadas em serviços diversos.
+
+
+5 Como atendente, eu quero gerenciar um cliente no sistema para poder dar entrada em equipamentos.
+4 Como atendente, eu quero dar entrada em um equipamento para ser feito orçamento.
+4 Como técnico, eu quero poder visualizar e modificar o status de uma O.S.
+3 Como atendente eu quero consultar se um cliente está cadastrado e quais equipamentos ele já trouxe
+3 Como atendente, eu quero consultar uma ordem de serviço e poder ver as informações e o seu status.
+3 Como técnico quero poder gerar um orçamento para uma O.S.
+3 Como patrão quero poder gerenciar funcionários.
+2 Como patrão quero poder visualizar clientes e suas ordens de serviço.
+1 Como cliente quero poder visualizar minhas O.S.
+1 Como cliente quero poder autorizar ou negar a execução de um serviço.
