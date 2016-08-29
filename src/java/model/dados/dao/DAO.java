@@ -13,7 +13,7 @@ import model.dados.hibernate.HibernateUtil;
  *
  * @author JonasJr
  */
-public class DAO implements DaoInterface{
+public abstract class DAO implements DaoInterface{
 
     EntityManager manager;
     
@@ -22,28 +22,18 @@ public class DAO implements DaoInterface{
     }
     
     @Override
-    public Object cadastrar(Object object) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract Object cadastrar(Object object) throws DaoException;
 
     @Override
-    public Object alterar(Object object) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract Object alterar(Object object) throws DaoException;
 
     @Override
-    public Object recuperar(Integer id) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract Object recuperar(Integer id) throws DaoException ;
 
     @Override
-    public Object deletar(Object object) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract Object deletar(Object object) throws DaoException;
 
     @Override
-    public List listarTudo(Object object) throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract List listarTudo(Object object) throws DaoException;
     
 }
