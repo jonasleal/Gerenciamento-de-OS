@@ -5,7 +5,7 @@
  */
 package model;
 
-import model.dados.RepositorioOS;
+import model.dados.repositorio.RepositorioOS;
 import model.entidades.OrdemServico;
 
 /**

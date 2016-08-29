@@ -5,7 +5,7 @@
  */
 package model;
 
-import model.dados.RepositorioCliente;
+import model.dados.repositorio.RepositorioCliente;
 import model.entidades.Cliente;
 
 /**
