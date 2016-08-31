@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.dados.dao;
+package model.exception;
 
 /**
  *
  * @author JonasJr
  */
-public class DaoException extends Exception{
-    
-    public DaoException(String msg){
+public class PessoaInvalidaException extends Exception{
+
+    public PessoaInvalidaException(String msg) {
         super(msg);
     }
-    public DaoException(String msg, Throwable causa){
-        super(msg, causa);
+    public PessoaInvalidaException(String msg , Throwable causa){
+        super(msg,causa);
     }
-    
 }
