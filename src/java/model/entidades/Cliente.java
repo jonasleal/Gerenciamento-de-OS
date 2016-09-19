@@ -6,7 +6,10 @@
 package model.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -15,9 +18,12 @@ import javax.persistence.Entity;
 @Entity
 public class Cliente extends Pessoa implements Serializable{
     
+    @OneToMany
+    private List<Equipamento> listaEquipamentos;
     
     public Cliente() {
         super();
+        listaEquipamentos = new ArrayList<>();
         
     }
 
