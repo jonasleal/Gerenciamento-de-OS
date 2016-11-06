@@ -14,16 +14,25 @@ import javax.persistence.Persistence;
  * @author JonasJr
  */
 public class HibernateUtil {
-    
-    private static EntityManagerFactory factory;
-    
-    static{
+
+    private EntityManagerFactory factory;
+    private static HibernateUtil hibernateUtil;
+
+    private HibernateUtil() {
         factory = Persistence.createEntityManagerFactory("gerenciadorOS");
+
+    }
+
+    public EntityManagerFactory getFactory() {
+        return factory;
+    }
+    
+    public static EntityManager getManager() {
+        if(hibernateUtil == null){
+            hibernateUtil = new HibernateUtil();
+        }
         
+        return hibernateUtil.getFactory().createEntityManager();
     }
-    
-    public static EntityManager getManager(){
-        return factory.createEntityManager();
-    }
-    
+
 }

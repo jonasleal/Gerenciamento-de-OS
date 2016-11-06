@@ -6,7 +6,7 @@
 package model.dados.dao;
 
 import model.exception.DaoException;
-import java.util.List;
+import model.dados.hibernate.HibernateUtil;
 import model.entidades.Cliente;
 
 /**
@@ -14,19 +14,17 @@ import model.entidades.Cliente;
  * @author JonasJr
  */
 public class DaoCliente extends DAO {
-   
-    @Override
-    public Object recuperar(long id) throws DaoException {
-        try{
-            return manager.find(Cliente.class, id);
-        }catch(Exception e){
-            throw new DaoException(e.getMessage());
-        }
-    }
 
     @Override
-    public List listarTudo() throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object recuperar(Long id) throws DaoException {
+        manager = HibernateUtil.getManager();
+        try {
+            return manager.find(Cliente.class, id);
+        } catch (Exception e) {
+            throw new DaoException(e.getMessage());
+        } finally {
+            manager.close();
+        }
     }
 
 }

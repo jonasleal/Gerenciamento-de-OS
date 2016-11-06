@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Cadastrar Pessoa</h1>
+        <p:fieldset legend="Cadastrar Cliente">
+            <h:form id="formCadCliente">
+                <p:panelGrid>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="*CPF:"/>
+                        </p:column>
+                        <p:column>
+                            <h:inputText id="cpf" value="#{cliente.cpf}"/>
+                        </p:column>
+                        <p:column rowspan="6" >
+                            <p:dataTable var="tel" value="#{cliente.telefone}"  emptyMessage="Não há telefones">
+                                <p:column headerText="Numero">
+                                    <h:outputText value="#{tel.numero}"/>
+                                </p:column>
+                                <p:column headerText="Tipo">
+                                    <h:outputText value="#{tel.tipo}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:commandLink action="#{controllerCliente.removerTelefone(tel)}">Excluir</h:commandLink>
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="*Nome:"/>
+                        </p:column>
+                        <p:column>
+                            <h:inputText id="nome" value="#{cliente.nome}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="*Senha: "/>
+                        </p:column>
+                        <p:column>
+                            <h:inputSecret id="senha" value="#{cliente.senha}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="*Confirmar senha:"/>
+                        </p:column>
+                        <p:column>
+                            <h:inputSecret id="confsenha" value="#{confSenha}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Telefone:"/>
+                        </p:column>
+                        <p:column>
+                            <h:inputText id="telefone" value="#{telefone.numero}"/><br/>
+                            <p:selectOneRadio id="tipoTel" value="#{telefone.tipo}">
+                                <f:selectItem itemLabel="Residencial" itemValue="#{telefone.RESIDENCIAL}"/>
+                                <f:selectItem itemLabel="Celular" itemValue="#{telefone.CELULAR}"/>
+                                <f:selectItem itemLabel="Comercial" itemValue="#{telefone.COMERCIAL}"/>
+                            </p:selectOneRadio>
+                                <h:commandButton value="Adicionar" action="#{controllerCliente.addTelefone(telefone.criaTelefone())}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:commandButton value="Limpar" action="#{controllerCliente.limparDados()}"/>                    
+                        </p:column>
+                        <p:column>
+                            <h:commandButton value="Cadastrar" action="#{controllerCliente.cadastrarCliente(cliente.criarCliente())}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="3">
+                            <p:messages showDetail="true"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </h:form>
+        </p:fieldset>
+    </h:body>
+</html>
+

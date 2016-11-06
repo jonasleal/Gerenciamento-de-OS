@@ -9,12 +9,14 @@ package model.exception;
  *
  * @author JonasJr
  */
-public class PessoaInvalidaException extends Exception{
+public class SenhaInvalidaException extends Exception{
 
-    public PessoaInvalidaException(String msg) {
+    public SenhaInvalidaException(String msg) {
         super(msg);
     }
-    public PessoaInvalidaException(String msg , Throwable causa){
-        super(msg,causa);
+
+    public SenhaInvalidaException(String msg, Throwable causa) {
+        super(msg, causa);
     }
+    
 }

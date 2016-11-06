@@ -2,10 +2,14 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="gerenciadorOS" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>model.entidades.Marca</class>
+    <class>model.entidades.Modelo</class>
+    <class>model.entidades.Telefone</class>
     <class>model.entidades.Cliente</class>
     <class>model.entidades.Pessoa</class>
     <class>model.entidades.Equipamento</class>
     <class>model.entidades.OrdemServico</class>
+    
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/gerenciadorOs"/>

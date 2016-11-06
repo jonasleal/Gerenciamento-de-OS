@@ -5,35 +5,61 @@
  */
 package model;
 
-import model.dados.repositorio.RepositorioCliente;
+import java.util.List;
+import model.dados.dao.DaoCliente;
 import model.entidades.Cliente;
+import model.entidades.Pessoa;
+import model.entidades.Telefone;
+import model.exception.DaoException;
+import model.exception.ObjetoInvalidoException;
 
 /**
  *
  * @author JonasJr
  */
-public class ClienteModel {
-    
-    RepositorioCliente rep = null;
+public class ClienteModel extends Model {
 
     public ClienteModel() {
-    rep = RepositorioCliente.criarRepositorio();
+        dao = new DaoCliente();
     }
-    
-    
-    
-    public void cadastrar(Cliente cliente){
-        if(cliente.getNome() != null){
-            rep.cadastrar(cliente);
+
+    @Override
+    public Object cadastrar(Object t) throws DaoException, ObjetoInvalidoException {
+        validar(t);
+        Cliente cliente;
+
+        try {
+            cliente = (Cliente) t;
+        } catch (Exception ex) {
+            throw new DaoException(ex.getMessage());
         }
+        cliente = (Cliente) dao.cadastrar(cliente);
+        if (cliente.getTelefone().size() > 0) {
+            Model<Telefone> modelTelefone = new TelefoneModel();
+            List<Telefone> listaTel = cliente.getTelefone();
+            for (Telefone tel : listaTel) {
+                modelTelefone.cadastrar(tel);
+            }
+            cliente.setTelefone(listaTel);
+        }
+        return cliente;
     }
-    public void alterar(Cliente cliente){
-        rep.alterar(cliente);
+
+    @Override
+    public boolean validar(Object t) throws ObjetoInvalidoException {
+        Model<Pessoa> model = new PessoaModel();
+        model.validar((Pessoa) t);
+        return true;
     }
-    public Cliente buscarNome(String nome){
-        return rep.recuperar(nome);
+
+    public Cliente buscarCPF(long cpf) throws DaoException {
+        String hql = "FROM Cliente c WHERE c.cpf = :p1 ";
+        return (Cliente) dao.buscar(cpf, hql);
     }
-    public void deletar(Cliente cliente){
-        rep.deletar(cliente);
+
+    @Override
+    public List listarTudo() throws DaoException {
+        return dao.listarTudo("FROM Cliente");
     }
+
 }

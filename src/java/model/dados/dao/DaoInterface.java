@@ -12,12 +12,12 @@ import java.util.List;
  *
  * @author JonasJr
  */
-public interface DaoInterface {
-    public Object cadastrar(Object object)throws DaoException;
-    public Object alterar(Object object) throws DaoException;
-    public Object recuperar(long id) throws DaoException;
-    public Object deletar(Object object) throws DaoException;
-    public List listarTudo() throws DaoException;
+public interface DaoInterface<T> {
+    public Object cadastrar(T object)throws DaoException;
+    public Object alterar(T object) throws DaoException;
+    public Object recuperar(Long id) throws DaoException;
+    public Object deletar(T object) throws DaoException;
+    public List listarTudo(String hql) throws DaoException;
     
     
 }

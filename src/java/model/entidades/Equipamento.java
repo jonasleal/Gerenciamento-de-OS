@@ -6,7 +6,11 @@
 package model.entidades;
 
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -15,23 +19,36 @@ import javax.persistence.ManyToOne;
  * @author JonasJr
  */
 @Entity
+@ManagedBean
+@SessionScoped
 public class Equipamento implements Serializable{
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String numeroSerie;
-    
+    @ManyToOne
+    private Modelo modelo;
     @ManyToOne
     private Cliente cliente; 
 
     public Equipamento() {
+        this.modelo = new Modelo();
+        this.cliente = new Cliente();
     }
 
-    public int getId() {
+    public Equipamento(Long id, String numeroSerie, Modelo modelo, Cliente cliente) {
+        this.id = id;
+        this.numeroSerie = numeroSerie;
+        this.modelo = modelo;
+        this.cliente = cliente;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int ordemServico) {
-        this.id = ordemServico;
+    public void setId(Long id) {
+        this.id = id;
     }
     
     public String getNumeroSerie() {
@@ -49,13 +66,26 @@ public class Equipamento implements Serializable{
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
-    public boolean validar(){
-        if(numeroSerie == null || numeroSerie.isEmpty() || cliente == null){
-            return false;
-        }
-        return true;
+
+    public Modelo getModelo() {
+        return modelo;
     }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
+    }
+    
+
+    @Override
+    public String toString() {
+        return "Equipamento{" + "numeroSerie=" + numeroSerie + ", modelo=" + modelo + ", cliente=" + cliente + '}';
+    }
+    
+    public Equipamento criarEquipamento(){
+            return new Equipamento(id, numeroSerie, modelo, cliente);
+    }
+    
+    
     
     
     

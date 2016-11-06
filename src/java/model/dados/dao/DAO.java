@@ -5,63 +5,115 @@
  */
 package model.dados.dao;
 
-import model.exception.DaoException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import model.dados.hibernate.HibernateUtil;
+import model.exception.DaoException;
 
 /**
  *
  * @author JonasJr
  */
-public abstract class DAO implements DaoInterface{
+public abstract class DAO<T> implements DaoInterface<T>{
 
-    EntityManager manager;
+    protected EntityManager manager;
     
     public DAO(){
-        manager = HibernateUtil.getManager();
     }
     
     @Override
-    public Object cadastrar(Object object) throws DaoException{
+    public T cadastrar(T object) throws DaoException{
+        manager = HibernateUtil.getManager();
         try{
         manager.getTransaction().begin();
         manager.persist(object);
         manager.getTransaction().commit();
         }catch(Exception e){
-            throw new DaoException(e.getMessage(),e.getCause());
+            throw new DaoException("Não foi cadastrado. " + e.getMessage());
+        }finally{
+         manager.close();
         }
         return object;
     }
 
     @Override
-    public Object alterar(Object object) throws DaoException{
+    public T alterar(T object) throws DaoException{
+        manager = HibernateUtil.getManager();
         try{
             this.manager.getTransaction().begin();
             object = this.manager.merge(object);
             this.manager.getTransaction().commit();
         }catch(Exception e){
             throw  new DaoException("Não foi atualizado " + e.getMessage());
+        }finally{
+            manager.close();
         }
         return object;
     }
 
     @Override
-    public abstract Object recuperar(long id) throws DaoException ;
+    public abstract T recuperar(Long id) throws DaoException ;
 
     @Override
-    public Object deletar(Object object) throws DaoException{
+    public T deletar(T object) throws DaoException{
+        manager = HibernateUtil.getManager();
         try{
             this.manager.getTransaction().begin();
             this.manager.remove(object);
             this.manager.getTransaction().commit();
         }catch(Exception e){
             throw new DaoException("Não foi removido " + e.getMessage());
+        }finally{
+            manager.close();
         }
         return  object;
     }
-
+    /**
+     * 
+     *  @param  p1 Parametro usado no codigo HQL.
+        @param  hql String com codigo HQL para consulta
+        @return Se encontrado uma referencia, retorna uma instancia.
+     *  @throws model.exception.DaoException
+       
+        
+    */
+    public T buscar(Object p1, String hql) throws DaoException{
+        manager = HibernateUtil.getManager();
+        try{
+        Query query = manager.createQuery(hql);
+        return (T) query.setParameter("p1", p1).getSingleResult();
+        }catch(Exception ex){
+            throw  new DaoException(ex.getMessage());
+        }finally{
+            manager.close();
+        }
+        }
+    
+    
+    public List<T> listar(Object p1, String hql) throws  DaoException{
+        manager = HibernateUtil.getManager();
+        try{
+        Query query = manager.createQuery(hql);
+        return query.setParameter("p1", p1).getResultList();
+        }catch(Exception ex){
+            throw  new DaoException(ex.getMessage());
+        } finally{
+            manager.close();
+        }
+    }
     @Override
-    public abstract List listarTudo() throws DaoException;
+    public List<T> listarTudo(String hql) throws DaoException{
+        manager = HibernateUtil.getManager();
+        try{
+        Query query = manager.createQuery(hql);
+        return query.getResultList();
+        }catch(Exception ex){
+            throw  new DaoException(ex.getMessage());
+        } finally{
+            manager.close();
+        }
+    }
+
     
 }

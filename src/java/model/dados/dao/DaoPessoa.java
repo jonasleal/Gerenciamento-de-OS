@@ -6,27 +6,26 @@
 package model.dados.dao;
 
 import model.exception.DaoException;
-import java.util.List;
+import model.dados.hibernate.HibernateUtil;
 import model.entidades.Pessoa;
 
 /**
  *
  * @author JonasJr
  */
-public class DaoPessoa extends DAO{
-   
-     @Override
-    public Object recuperar(long id) throws DaoException {
-        try{
-            return manager.find(Pessoa.class, id);
-        }catch(Exception e){
-            throw new DaoException(e.getMessage());
-        }
-    }
+public class DaoPessoa extends DAO {
 
     @Override
-    public List listarTudo() throws DaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public Object recuperar(Long id) throws DaoException {
+        manager = HibernateUtil.getManager();
+        try {
+            return manager.find(Pessoa.class, id);
+        } catch (Exception e) {
+            throw new DaoException(e.getMessage());
+        } finally {
+            manager.close();
+        }}
+
     
+
 }

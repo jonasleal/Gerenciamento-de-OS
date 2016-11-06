@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import model.exception.CpfInvalidoException;
+import model.exception.ObjetoInvalidoException;
 
 /**
  *
@@ -20,6 +23,7 @@ public class OrdemServico implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int numero;
+    @ManyToOne
     private Equipamento equipamento;
 
     public  OrdemServico(){
@@ -45,11 +49,6 @@ public class OrdemServico implements Serializable{
         this.equipamento = equipamento;
     }
     
-    public boolean validar(){
-        if(!equipamento.validar()){
-            return false;
-        }
-        return true;
-    }
+    
     
 }
